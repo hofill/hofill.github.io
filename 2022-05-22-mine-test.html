@@ -1,0 +1,77 @@
+<h1 id="legend">Legend</h1>
+<ul>
+  <li><a href="#descr">Challenge Description</a></li>
+  <li><a href="#flagproof">Flag Proof</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+<h1 id="descr">Challenge Description</h1>
+
+<p>We failed to find the hidden information on the server, here are the filles.</p>
+
+<p>Flag format: CTF{xxxxxxxxxxxxxxxxxx_xxx}</p>
+
+<h1 id="flagproof">Flag Proof</h1>
+
+<blockquote>
+  <p>CTF{this_was_a_hidden_room_lol}</p>
+
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>Search the map database to find all signs and their text</p>
+
+<h1 id="details">Details</h1>
+
+<p>We get a bunch of files for a game called <code class="language-plaintext highlighter-rouge">minetest</code>, and we have to find a secret, somewhere. The first thing I tried to do was downloading the game (using <code class="language-plaintext highlighter-rouge">brew</code>) and running the world with a player called <code class="language-plaintext highlighter-rouge">Splasher</code> (found in the logs file).</p>
+
+<p>We spawned on top of a sign, saying <code class="language-plaintext highlighter-rouge">Try harder</code>. To find the flag, we thought that we had to search for all of the signs in the map and read them all.</p>
+
+<p>We generated a top view of the map, which didn’t help much:</p>
+
+<p><img src="/assets/img/mine-server/a.png" alt="a.png" /></p>
+
+<p>We then started going through the world files and found <code class="language-plaintext highlighter-rouge">map.sqlite</code>, which, according to the <code class="language-plaintext highlighter-rouge">minetest</code> documentation, contains information about the blocks (nodes of 16x16x16) that have been generated.</p>
+
+<p>We opened it up and we found <code class="language-plaintext highlighter-rouge">pos</code> and <code class="language-plaintext highlighter-rouge">data</code> for all blocks:</p>
+
+<p><img src="/assets/img/mine-server/Untitled.png" alt="Untitled" /></p>
+
+<p>Afterwards, we read the official documentation for how these rows get filled:</p>
+
+<p><a href="https://github.com/minetest/minetest/blob/master/doc/world_format.txt">https://github.com/minetest/minetest/blob/master/doc/world_format.txt</a></p>
+
+<p><img src="/assets/img/mine-server/Untitled%201.png" alt="Untitled" /></p>
+
+<p>Byte:</p>
+
+<p><img src="/assets/img/mine-server/Untitled%202.png" alt="Untitled" /></p>
+
+<p>Apparently, the bytes are zipped using <code class="language-plaintext highlighter-rouge">zstd</code> (not zlib), after being serialized.</p>
+
+<p>I created a simple script to get all of the data and unzip it(skipping the first byte), then tried searching for just blocks that have a <code class="language-plaintext highlighter-rouge">sign</code> in them.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'map.sqlite'</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">'SELECT data FROM blocks'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'res.zst'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">y</span><span class="p">:</span>
+        <span class="n">y</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"zstd -d res.zst"</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'res'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">y</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="sa">b</span><span class="s">'sign'</span> <span class="ow">in</span> <span class="n">a</span><span class="p">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'rm res'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After running this script for a while, we got two results. At the end of the first result, there was the flag:</p>
+
+<p><code class="language-plaintext highlighter-rouge">\x00\x00\x00\x03\x00\x08formspec\x00\x00\x00\x14field[text;;${text}]\x00\x00\x04text\x00\x00\x00\x1fCTF{this_was_a_hidden_room_lol}\x00\x00\x08infotext\x00\x00\x003\x1b(T@default)"\x1bFCTF{this_was_a_hidden_room_lol}\x1bE"\x1bE\x00EndInventory\n\x00\x00\x00\n\x00\x00'</code></p>
+
+<p>The second result was the initial <code class="language-plaintext highlighter-rouge">Try harder</code> sign.</p>
