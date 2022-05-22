@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/ockham.css">
+    <script async src="/assets/js/ockham.js"></script>
+    <script async src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+
+    
+<link rel="icon" href="/assets/img/cryptoicontfc.svg">
+<title>digital-talking | hofill's blog</title>
+
+
+</head>
+
+
+<body>
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <img style="box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.6)" alt="picture of me" src="/assets/img/noria22.png">
+  </div>
+  <div class="sidebar-item">
+    <p>The place where <strike>magic</strike> hacking happens.</p>
+  </div>
+
+  
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+    
+      <li">
+        <a href="/" class="sidebar-nav-item ">
+          Home
+        </a>
+      </li>
+    
+      <li">
+        <a href="/about" class="sidebar-nav-item ">
+          About
+        </a>
+      </li>
+    
+      <li">
+        <a href="/writeups" class="sidebar-nav-item ">
+          Writeups
+        </a>
+      </li>
+    
+      <li">
+        <a href="/blogs" class="sidebar-nav-item ">
+          Blogs
+        </a>
+      </li>
+    
+    </ul>
+  </nav>
+  
+
+  
+  <div class="sidebar-item">
+    
+      <a class="social-icon" href="https://github.com/hofill" target="_blank">
+        <i class="fab fa-github" title="GitHub"></i>
+      </a>
+    
+  </div>
+  
+
+  <div class="sidebar-item">
+    <small>
+      Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> & <a href="https://github.com/zivong/ockham" target="_blank">Ockham</a>
+    </small>
+  </div>
+</div>
+
+
+<div class="wrap">
+    <div class="container">
+
+        <header class="masthead">
+            <div class="masthead-title">
+                <a href="/" title="Home"><span style="color: #06BCC1">hofill > ./blog</span></a>
+                <small>Crypto enthusiast.</small>
+            </div>
+        </header>
+
+        <main>
+            <article class="post"><img alt="" src="https://unr22-individual.cyberedu.ro/images/contests/BMwo9sxqDZaYqNem.png" class="header-photo"><h1 class="post-title" style="color: #EF596F"><span class="helper">
+        <img class="category-image" alt=""
+                                                          src="/assets/img/categories/crypto.svg"><img class="category-image" alt=""
+                                                          src="/assets/img/categories/misc.svg"></span><span
+                class="title">digital-talking</span></h1>
+    <div class="post-meta">
+        <time datetime="2022-05-22T00:00:00+00:00" itemprop="datePublished">
+            22 May 2022
+        </time>•
+        
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">hofill</span></div>
+    <div class="post-writeup-tags">
+        
+        <div class="type">
+            crypto
+        </div>
+        
+        <div class="type">
+            digital
+        </div>
+        
+        <div class="type">
+            7-segment-display
+        </div>
+        
+        <div class="type">
+            misc
+        </div>
+        
+    </div>
+
+    <h1 id="legend">Legend</h1>
+<ul>
+  <li><a href="#descr">Challenge Description</a></li>
+  <li><a href="#flagproof">Flag Proof</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+<h1 id="descr">Challenge Description</h1>
+
+<p>Decrypt the message and get the flag.</p>
+
+<p>Don’t forget to put it into the brackets and add CTF.</p>
+
+<h1 id="flagproof">Flag Proof</h1>
+
+<blockquote>
+  <p>CTF{49c2619fc3c6ee789b1fccb46f4ac9af23130293e7cd417b34a97d8160bec5f9}</p>
+
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>Binary to anode 7 segment display</p>
+
+<h1 id="details">Details</h1>
+
+<p>We get a file with a bunch of binary data. Upon analysing it we realise the following:</p>
+
+<ul>
+  <li>The bytes are grouped by <strong>7</strong></li>
+  <li>There are <strong>17</strong> different ways they are grouped, meaning [0-9a-f], exactly like the flag should look like</li>
+  <li>There are <strong>64</strong> of them, enough for the entire flag.</li>
+</ul>
+
+<p>This means that each of the binary chunks represent one letter in the flag.</p>
+
+<p>Taking a hint from the title of the challenge, we realise that we are talking about something <code class="language-plaintext highlighter-rouge">digital</code>. One of the things that came to mind was the <em>7 segment display.</em></p>
+
+<p>I then used <a href="https://www.dcode.fr/7-segment-display">https://www.dcode.fr/7-segment-display</a> to decode the binary data, and I got:</p>
+
+<p><img src="/assets/img/digital-talking/1.png" alt="image" /></p>
+
+<p>I made the text lowercase and submitted the flag.</p>
+
+
+</article>
+
+
+
+<div class="post-pagination">
+    
+    <a class="post-pagination-item left" href="/writeup/tim3">
+        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">tim3
+</span>
+    </a>
+    
+
+    
+    <span class="post-pagination-item right"></span>
+    
+</div>
+
+        </main>
+
+        <footer class="footer">
+            <small>
+                &copy;
+                <time datetime="2022-05-22T20:36:59+00:00">2022</time>&nbsp;<a href="https://github.com/hofill/" target="_blank">hofill</a>. All rights reserved.
+            </small>
+        </footer>
+    </div>
+</div>
+
+<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+
+
+
+</body>
+</html>
