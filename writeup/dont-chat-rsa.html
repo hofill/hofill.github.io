@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/ockham.css">
+    <script async src="/assets/js/ockham.js"></script>
+    <script async src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+
+    
+<link rel="icon" href="/assets/img/cryptoicontfc.svg">
+<title>Don’t chat too much about RSA! | hofill's blog</title>
+
+
+</head>
+
+
+<body>
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <img style="box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.6)" alt="picture of me" src="/assets/img/noria22.png">
+  </div>
+  <div class="sidebar-item">
+    <p>The place where <strike>magic</strike> hacking happens.</p>
+  </div>
+
+  
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+    
+      <li">
+        <a href="/" class="sidebar-nav-item ">
+          Home
+        </a>
+      </li>
+    
+      <li">
+        <a href="/about" class="sidebar-nav-item ">
+          About
+        </a>
+      </li>
+    
+      <li">
+        <a href="/writeups" class="sidebar-nav-item ">
+          Writeups
+        </a>
+      </li>
+    
+      <li">
+        <a href="/blogs" class="sidebar-nav-item ">
+          Blogs
+        </a>
+      </li>
+    
+    </ul>
+  </nav>
+  
+
+  
+  <div class="sidebar-item">
+    
+      <a class="social-icon" href="https://github.com/hofill" target="_blank">
+        <i class="fab fa-github" title="GitHub"></i>
+      </a>
+    
+  </div>
+  
+
+  <div class="sidebar-item">
+    <small>
+      Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> & <a href="https://github.com/zivong/ockham" target="_blank">Ockham</a>
+    </small>
+  </div>
+</div>
+
+
+<div class="wrap">
+    <div class="container">
+
+        <header class="masthead">
+            <div class="masthead-title">
+                <a href="/" title="Home"><span style="color: #06BCC1">hofill > ./blog</span></a>
+                <small>Crypto enthusiast.</small>
+            </div>
+        </header>
+
+        <main>
+            <article class="post"><img alt="" src="https://unr22-individual.cyberedu.ro/images/contests/BMwo9sxqDZaYqNem.png" class="header-photo"><h1 class="post-title" style="color: #EF596F"><span class="helper">
+        <img class="category-image" alt=""
+                                                          src="/assets/img/categories/crypto.svg"></span><span
+                class="title">Don’t chat too much about RSA!</span></h1>
+    <div class="post-meta">
+        <time datetime="2022-05-22T00:00:00+00:00" itemprop="datePublished">
+            22 May 2022
+        </time>•
+        
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">hofill</span></div>
+    <div class="post-writeup-tags">
+        
+        <div class="type">
+            crypto
+        </div>
+        
+        <div class="type">
+            RSA
+        </div>
+        
+    </div>
+
+    <h1 id="legend">Legend</h1>
+<ul>
+  <li><a href="#descr">Challenge Description</a></li>
+  <li><a href="#flagproof">Flag Proof</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+<h1 id="descr">Challenge Description</h1>
+
+<p>Hello Hacker! I’ve intercepted on the network some interesting stuff: a cute dog photo, two documents with strange random data and someone’s public key. I know… I don’t know either where to start from… Can you help me make sense of all these files? I think that one of them contains a secret!</p>
+
+<p>Flag format: CTF{message}</p>
+
+<h1 id="flagproof">Flag Proof</h1>
+
+<blockquote>
+  <p>CTF{kn0wiNG_7H3_5um_0f_pRIM35_i5_r3ALLy_DaNg3r0u2}</p>
+
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>Steghide on a picture, AES ECB on the discussion and math to get the <code class="language-plaintext highlighter-rouge">p</code> and <code class="language-plaintext highlighter-rouge">q</code> of the public key to get the secret.</p>
+
+<h1 id="details">Details</h1>
+
+<p>Upon opening the folder we got, we are greeted by an image, two documents and a pubkey. Considering this challenge is also a steganography challenge, I added the image we got into an automatic steg finder.</p>
+
+<p>We got a bunch of results, but we also got a hit on Steghide.</p>
+
+<p><img src="/assets/img/dont-chat-rsa/Untitled.png" alt="Untitled" /></p>
+
+<p>Steghide managed to extract a password <code class="language-plaintext highlighter-rouge">THISwasTOOiziECB</code>.</p>
+
+<p>After I got this password, I tried to decrypt the conversation in the file named <code class="language-plaintext highlighter-rouge">conversation.txt</code>. I opened it up in CyberChef, and used it’s AES decryptor.</p>
+
+<p><img src="/assets/img/dont-chat-rsa/Untitled%201.png" alt="Untitled" /></p>
+
+<p>The result was the following conversation, decrypted:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">***</span> <span class="n">internal</span> <span class="n">conversation</span> <span class="o">-</span> <span class="n">level</span> <span class="n">of</span> <span class="n">dissemination</span> <span class="o">-</span> <span class="n">strict</span> <span class="n">confidential</span> <span class="o">***</span>
+<span class="p">[</span><span class="n">CHRIS</span><span class="p">]:</span> <span class="n">Hi</span> <span class="n">Steve</span><span class="err">!</span> <span class="n">It</span><span class="s">'s Chris from the IT Security department. As you'</span><span class="n">ve</span> <span class="n">requested</span><span class="p">,</span> <span class="n">I</span><span class="s">'ve changed your old RSA keys to a new set of keys.  
+[STEVE]: Awesome! Did you manage to make them secure and fool-proof for me? :)
+[CHRIS]: Just secure?!? These keys are super mega ultra extra secure! In fact, they are so secure that nobody will ever break them without a super quantum computer! I don'</span><span class="n">t</span> <span class="n">like</span> <span class="n">brag</span> <span class="n">about</span> <span class="n">it</span> <span class="p">(</span><span class="o">*</span><span class="n">typing</span> <span class="k">with</span> <span class="n">a</span> <span class="n">smirk</span> <span class="n">face</span><span class="o">*</span><span class="p">),</span> <span class="n">but</span> <span class="n">I</span> <span class="n">choose</span> <span class="n">the</span> <span class="n">prime</span> <span class="n">numbers</span> <span class="n">myself</span><span class="p">,</span> <span class="n">so</span> <span class="n">they</span> <span class="n">are</span> <span class="k">for</span> <span class="n">sure</span> <span class="n">safe</span><span class="err">!</span> 
+<span class="p">[</span><span class="n">STEVE</span><span class="p">]:</span> <span class="n">Cool</span><span class="err">!</span> <span class="n">Can</span> <span class="n">you</span> <span class="n">tell</span> <span class="n">me</span> <span class="n">the</span> <span class="n">numbers</span> <span class="n">then</span><span class="err">?</span>
+<span class="p">[</span><span class="n">CHRIS</span><span class="p">]:</span> <span class="n">Hell</span> <span class="n">NO</span><span class="err">!</span> <span class="n">It</span> <span class="n">will</span> <span class="n">make</span> <span class="n">your</span> <span class="n">public</span> <span class="ow">and</span> <span class="n">private</span> <span class="n">keys</span> <span class="n">worthless</span><span class="err">!</span> <span class="n">I</span><span class="s">'ll never share those numbers with you.
+[STEVE]: Oh, come on maaaan... You know I'</span><span class="n">m</span> <span class="nb">super</span> <span class="n">curious</span> <span class="n">about</span> <span class="n">these</span> <span class="n">things</span> <span class="n">cyber</span> <span class="n">stuff</span><span class="p">...</span>
+<span class="p">[</span><span class="n">CHRIS</span><span class="p">]:</span> <span class="n">Sorry</span><span class="p">,</span> <span class="n">Steve</span><span class="p">.</span> <span class="n">I</span> <span class="n">cannot</span> <span class="n">tell</span> <span class="n">you</span> <span class="n">what</span> <span class="n">those</span> <span class="n">numbers</span> <span class="n">are</span><span class="p">.</span> <span class="n">However</span><span class="p">,</span> <span class="n">what</span> <span class="n">I</span> <span class="n">can</span> <span class="n">tell</span> <span class="n">you</span> <span class="ow">is</span> <span class="n">that</span> <span class="n">those</span> <span class="n">numbers</span> <span class="n">are</span> <span class="n">reaaaaallllyyyyyy</span> <span class="n">biiiiiiig</span> <span class="ow">and</span> <span class="n">their</span> <span class="nb">sum</span> <span class="ow">is</span> <span class="n">even</span> <span class="n">bigger</span><span class="p">...</span> <span class="n">something</span> <span class="n">like</span> <span class="mi">24722116169992465881070271199690169362455458193332180161871370678459930090250287749736220134651803789983780083709278592071250797494670685808152851319806502</span> <span class="p">...</span> 
+<span class="p">[</span><span class="n">STEVE</span><span class="p">]:</span> <span class="n">WOW</span><span class="err">!</span> <span class="n">That</span><span class="s">'s a huge number indeed!
+[CHRIS]: See? I told you that the keys are super safe to use! They are simply UNbreakable! 
+[STEVE]: Ok, Chris! Let'</span><span class="n">s</span> <span class="n">see</span> <span class="k">if</span> <span class="n">the</span> <span class="n">keys</span> <span class="n">work</span> <span class="n">now</span><span class="p">.</span> <span class="n">Send</span> <span class="n">me</span> <span class="n">a</span> <span class="n">secure</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">I</span><span class="s">'ll decrypt it. 
+*** sending a secure message ***
+[STEVE]: Haha, okay, they work. Thanks again Chris! See you at the cafeteria during lunch!
+[CHRIS]: No problem! That'</span><span class="n">s</span> <span class="n">my</span> <span class="n">job</span><span class="p">.</span> <span class="n">See</span> <span class="n">you</span> <span class="n">there</span><span class="err">!</span>
+</code></pre></div></div>
+
+<p>I noticed that they leaked the sum of their two primes.</p>
+
+<p>To get the value n, we use <a href="https://www.dcode.fr/rsa-cipher">https://www.dcode.fr/rsa-cipher</a> and we paste the public key there.</p>
+
+<p>We get the sum of p+q, and we know p*q=n so in order to get p and q, I created the following script:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">z3</span>
+<span class="kn">import</span> <span class="nn">binascii</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">math</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">152189662152498056403705414170568508936266727797833989074846193193998251501633923591654577149021291177531465603011130507338728477914317649256149828628303152425417194350609637963385945455709522253307371596194326796191907374721561001464612958007488588079796562020731848146769110923462880010550279833363167428057</span>
+<span class="nb">sum</span> <span class="o">=</span> <span class="mi">24722116169992465881070271199690169362455458193332180161871370678459930090250287749736220134651803789983780083709278592071250797494670685808152851319806502</span>
+
+<span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">z3</span><span class="p">.</span><span class="n">Ints</span><span class="p">(</span><span class="s">'p q'</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">z3</span><span class="p">.</span><span class="n">Solver</span><span class="p">()</span>
+<span class="n">s</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="nb">sum</span> <span class="o">==</span> <span class="n">p</span> <span class="o">+</span> <span class="n">q</span><span class="p">,</span> <span class="n">n</span> <span class="o">==</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">s</span><span class="p">.</span><span class="n">check</span><span class="p">()</span> <span class="o">==</span> <span class="n">z3</span><span class="p">.</span><span class="n">sat</span><span class="p">,</span> <span class="s">'Could not find a solution.'</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">model</span><span class="p">()[</span><span class="n">p</span><span class="p">].</span><span class="n">as_long</span><span class="p">()</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">model</span><span class="p">()[</span><span class="n">q</span><span class="p">].</span><span class="n">as_long</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After getting <code class="language-plaintext highlighter-rouge">p</code> and <code class="language-plaintext highlighter-rouge">q</code>, we input the values in <a href="https://www.dcode.fr/rsa-cipher">https://www.dcode.fr/rsa-cipher</a> again for decrypting the <code class="language-plaintext highlighter-rouge">secret.txt</code> file (to get an integer from it you convert it to hex and then to decimal), and we get:</p>
+
+<p><code class="language-plaintext highlighter-rouge">CTF{kn0wiNG_7H3_5um_0f_pRIM35_i5_r3ALLy_DaNg3r0u2}</code></p>
+
+
+</article>
+
+
+
+<div class="post-pagination">
+    
+    <a class="post-pagination-item left" href="/writeup/digital-talking">
+        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">digital-talking
+</span>
+    </a>
+    
+
+    
+    <a class="post-pagination-item right" href="/writeup/oootp">
+        <span class="post-pagination-title">oootp
+</span> <i
+            class="fas fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+        </main>
+
+        <footer class="footer">
+            <small>
+                &copy;
+                <time datetime="2022-05-22T21:14:15+00:00">2022</time>&nbsp;<a href="https://github.com/hofill/" target="_blank">hofill</a>. All rights reserved.
+            </small>
+        </footer>
+    </div>
+</div>
+
+<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+
+
+
+</body>
+</html>

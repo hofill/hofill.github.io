@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/ockham.css">
+    <script async src="/assets/js/ockham.js"></script>
+    <script async src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+
+    
+<link rel="icon" href="/assets/img/cryptoicontfc.svg">
+<title>crypto-easy | hofill's blog</title>
+
+
+</head>
+
+
+<body>
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <img style="box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.6)" alt="picture of me" src="/assets/img/noria22.png">
+  </div>
+  <div class="sidebar-item">
+    <p>The place where <strike>magic</strike> hacking happens.</p>
+  </div>
+
+  
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+    
+      <li">
+        <a href="/" class="sidebar-nav-item ">
+          Home
+        </a>
+      </li>
+    
+      <li">
+        <a href="/about" class="sidebar-nav-item ">
+          About
+        </a>
+      </li>
+    
+      <li">
+        <a href="/writeups" class="sidebar-nav-item ">
+          Writeups
+        </a>
+      </li>
+    
+      <li">
+        <a href="/blogs" class="sidebar-nav-item ">
+          Blogs
+        </a>
+      </li>
+    
+    </ul>
+  </nav>
+  
+
+  
+  <div class="sidebar-item">
+    
+      <a class="social-icon" href="https://github.com/hofill" target="_blank">
+        <i class="fab fa-github" title="GitHub"></i>
+      </a>
+    
+  </div>
+  
+
+  <div class="sidebar-item">
+    <small>
+      Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> & <a href="https://github.com/zivong/ockham" target="_blank">Ockham</a>
+    </small>
+  </div>
+</div>
+
+
+<div class="wrap">
+    <div class="container">
+
+        <header class="masthead">
+            <div class="masthead-title">
+                <a href="/" title="Home"><span style="color: #06BCC1">hofill > ./blog</span></a>
+                <small>Crypto enthusiast.</small>
+            </div>
+        </header>
+
+        <main>
+            <article class="post"><img alt="" src="https://unr22-individual.cyberedu.ro/images/contests/BMwo9sxqDZaYqNem.png" class="header-photo"><h1 class="post-title" style="color: #EF596F"><span class="helper">
+        <img class="category-image" alt=""
+                                                          src="/assets/img/categories/crypto.svg"></span><span
+                class="title">crypto-easy</span></h1>
+    <div class="post-meta">
+        <time datetime="2022-05-22T00:00:00+00:00" itemprop="datePublished">
+            22 May 2022
+        </time>•
+        
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">hofill</span></div>
+    <div class="post-writeup-tags">
+        
+        <div class="type">
+            crypto
+        </div>
+        
+        <div class="type">
+            KeePassXC
+        </div>
+        
+        <div class="type">
+            AES
+        </div>
+        
+        <div class="type">
+            RSA
+        </div>
+        
+    </div>
+
+    <h1 id="legend">Legend</h1>
+<ul>
+  <li><a href="#descr">Challenge Description</a></li>
+  <li><a href="#flagproof">Flag Proof</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+<h1 id="descr">Challenge Description</h1>
+
+<p>You have the safe and a part of the key… Will you be able to find the other part? When opened, pay great attention to contents..</p>
+
+<p>Flag format: CTF{sha256}</p>
+
+<h1 id="flagproof">Flag Proof</h1>
+
+<p>First flag:</p>
+
+<blockquote>
+  <p>CTF{5E6C11B0D5DCB6149BB7205E8966A9F530BC64CFA58DAE1769EA0A6922B9B263}</p>
+
+</blockquote>
+
+<p>Second flag:</p>
+
+<blockquote>
+  <p>CTF{1C8EC7DBED7FFF24B7BF5683CD2B818576D7C4EFE1BBD5B79A9FF6BBEED59EF0}</p>
+
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>Analyse key for the first flag, then decrypt the second flag using AES CBC and IV.</p>
+
+<h1 id="details">Details</h1>
+
+<p>We get two files. A <code class="language-plaintext highlighter-rouge">.key</code> file and a <code class="language-plaintext highlighter-rouge">.kdbx</code> file. The <code class="language-plaintext highlighter-rouge">.kdbx</code> file is used for the application KeePassXC, a password storage option. I can’t make screenshots in the app, so I’ll have to describe what I saw.</p>
+
+<p>I opened up KeePassXC, imported the <code class="language-plaintext highlighter-rouge">.kdbx</code> file and used the key we were given. We also needed a password, however. I then started analysing the <code class="language-plaintext highlighter-rouge">.key</code> file. I converted it to hex:</p>
+
+<p><img src="/assets/img/crypto-easy/Untitled.png" alt="Untitled" /></p>
+
+<p>The key in hex looks a lot like the fibonacci sequence, so I tried <code class="language-plaintext highlighter-rouge">fibonacci</code> as a password, and it worked! This gave me the first flag:</p>
+
+<p><code class="language-plaintext highlighter-rouge">CTF{5E6C11B0D5DCB6149BB7205E8966A9F530BC64CFA58DAE1769EA0A6922B9B263}</code></p>
+
+<p>The second input in the keysafe had a password: <code class="language-plaintext highlighter-rouge">un8r34k4l3</code>, a note with two hexstrings, a username <code class="language-plaintext highlighter-rouge">aes-256-cbc</code> and an attachment.</p>
+
+<p>The first thing I thought was decrypting the file with the password and one of the hexstrings as an <strong>IV</strong>. As such, I downloaded the attachment and ran the command:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">➜</span>  <span class="n">Downloads</span> <span class="n">openssl</span> <span class="n">enc</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">aes</span><span class="o">-</span><span class="mi">256</span><span class="o">-</span><span class="n">cbc</span> <span class="o">-</span><span class="n">iv</span> <span class="mi">3235</span><span class="n">AFF3C541196168C3839B</span> <span class="o">-</span><span class="ow">in</span> <span class="n">flag2</span><span class="p">.</span><span class="n">enc</span> <span class="o">-</span><span class="n">out</span> <span class="n">a</span><span class="p">.</span><span class="n">txt</span> 
+<span class="n">enter</span> <span class="n">aes</span><span class="o">-</span><span class="mi">256</span><span class="o">-</span><span class="n">cbc</span> <span class="n">decryption</span> <span class="n">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">wrote</span> <span class="n">password</span> <span class="n">here</span><span class="o">&gt;</span>
+<span class="err">➜</span>  <span class="n">Downloads</span> <span class="n">cat</span> <span class="n">a</span><span class="p">.</span><span class="n">txt</span>                                                                         
+<span class="n">CTF</span><span class="p">{</span><span class="mi">1</span><span class="n">C8EC7DBED7FFF24B7BF5683CD2B818576D7C4EFE1BBD5B79A9FF6BBEED59EF0</span><span class="p">}</span><span class="o">%</span>
+</code></pre></div></div>
+
+<p>As such, I also got the second flag:</p>
+
+<p><code class="language-plaintext highlighter-rouge">CTF{1C8EC7DBED7FFF24B7BF5683CD2B818576D7C4EFE1BBD5B79A9FF6BBEED59EF0}</code></p>
+
+
+</article>
+
+
+
+<div class="post-pagination">
+    
+    <a class="post-pagination-item left" href="/writeup/tim3">
+        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">tim3
+</span>
+    </a>
+    
+
+    
+    <a class="post-pagination-item right" href="/writeup/digital-talking">
+        <span class="post-pagination-title">digital-talking
+</span> <i
+            class="fas fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+        </main>
+
+        <footer class="footer">
+            <small>
+                &copy;
+                <time datetime="2022-05-22T21:14:15+00:00">2022</time>&nbsp;<a href="https://github.com/hofill/" target="_blank">hofill</a>. All rights reserved.
+            </small>
+        </footer>
+    </div>
+</div>
+
+<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+
+
+
+</body>
+</html>

@@ -12,7 +12,7 @@
 
     
 <link rel="icon" href="/assets/img/cryptoicontfc.svg">
-<title>digital-talking | hofill's blog</title>
+<title>oootp | hofill's blog</title>
 
 
 </head>
@@ -91,9 +91,8 @@
         <main>
             <article class="post"><img alt="" src="https://unr22-individual.cyberedu.ro/images/contests/BMwo9sxqDZaYqNem.png" class="header-photo"><h1 class="post-title" style="color: #EF596F"><span class="helper">
         <img class="category-image" alt=""
-                                                          src="/assets/img/categories/crypto.svg"><img class="category-image" alt=""
-                                                          src="/assets/img/categories/misc.svg"></span><span
-                class="title">digital-talking</span></h1>
+                                                          src="/assets/img/categories/crypto.svg"></span><span
+                class="title">oootp</span></h1>
     <div class="post-meta">
         <time datetime="2022-05-22T00:00:00+00:00" itemprop="datePublished">
             22 May 2022
@@ -107,15 +106,7 @@
         </div>
         
         <div class="type">
-            digital
-        </div>
-        
-        <div class="type">
-            7-segment-display
-        </div>
-        
-        <div class="type">
-            misc
+            OTP
         </div>
         
     </div>
@@ -130,40 +121,46 @@
 
 <h1 id="descr">Challenge Description</h1>
 
-<p>Decrypt the message and get the flag.</p>
+<p>Bob encrypted his sensitive data with one time
+pad, however we have the suspicion that he did something wrong. We
+extracted some encrypted data. Note that Bob hates punctuation. Can you
+decrypt the flag?</p>
 
-<p>Don’t forget to put it into the brackets and add CTF.</p>
+<p><code class="language-plaintext highlighter-rouge">c192a8e9e01b95c69c14aae80368c668e97e1f234545beb02ab742c72d0a65043c1c8562d65cd7e462e391a8d50ba04e14d3ac4abe9f09fba4e9f05031b36055509d3bc2e59f18c709f87f</code></p>
 
 <h1 id="flagproof">Flag Proof</h1>
 
 <blockquote>
-  <p>CTF{49c2619fc3c6ee789b1fccb46f4ac9af23130293e7cd417b34a97d8160bec5f9}</p>
+  <p>CTF{b20b26d59d0d4d2f66b69b1cbb5baa089ba8f4379ad24bc32a32fb063c8d16ab}</p>
 
 </blockquote>
 
 <h1 id="summary">Summary</h1>
 
-<p>Binary to anode 7 segment display</p>
+<p>Run Many-Time Pad on the file and extract the key to use on the encrypted flag.</p>
 
-<h1 id="details">Details</h1>
+<h1 id="descr">Details</h1>
 
-<p>We get a file with a bunch of binary data. Upon analysing it we realise the following:</p>
+<p>We have a hex string that has apparently been encrypted with <code class="language-plaintext highlighter-rouge">OTP</code>. Alongside that, we get a file called <code class="language-plaintext highlighter-rouge">encrypted_data.txt</code>, which contains a bunch of hex strings.</p>
 
-<ul>
-  <li>The bytes are grouped by <strong>7</strong></li>
-  <li>There are <strong>17</strong> different ways they are grouped, meaning [0-9a-f], exactly like the flag should look like</li>
-  <li>There are <strong>64</strong> of them, enough for the entire flag.</li>
-</ul>
+<p>The title is a hint for the Many Time Pad vulnerability (OTP with many O’s). Basically, the user used the same password to encrypt both the flag and all of the hexstrings from the <code class="language-plaintext highlighter-rouge">encrypted_data.txt</code> file. For that, we can use a tool found on GitHub: <a href="https://github.com/CameronLonsdale/MTP">https://github.com/CameronLonsdale/MTP</a></p>
 
-<p>This means that each of the binary chunks represent one letter in the flag.</p>
+<p>Running the MTP script on our encrypted_data.txt file, we get the following:</p>
 
-<p>Taking a hint from the title of the challenge, we realise that we are talking about something <code class="language-plaintext highlighter-rouge">digital</code>. One of the things that came to mind was the <em>7 segment display.</em></p>
+<p><img src="/assets/img/oootp/Untitled.png" alt="Untitled" /></p>
 
-<p>I then used <a href="https://www.dcode.fr/7-segment-display">https://www.dcode.fr/7-segment-display</a> to decode the binary data, and I got:</p>
+<p>The key at the bottom is the key used to decrypt our flag:</p>
 
-<p><img src="/assets/img/digital-talking/1.png" alt="image" /></p>
+<p><code class="language-plaintext highlighter-rouge">87fec98eda3bd692da6fc8da330af45e8d4b264775218ad418d174f14f3c5c660d7fe700e33eb68552dba8cab433c67a27e4952bdaad3d99c7dac2310281063760ab08a1ddfb29f1689a02</code></p>
 
-<p>I made the text lowercase and submitted the flag.</p>
+<p>Using this, the given hexstring, and CyberChef, we can decrypt the flag and get:</p>
+
+<blockquote>
+  <p>Flag: CTF{b20b26d59d0d4d2f66b69b1cbb5baa089ba8f4379ad24bc32a32fb063c8d16ab}</p>
+
+</blockquote>
+
+<p><a href="https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')XOR(%7B'option':'Hex','string':'87fec98eda3bd692da6fc8da330af45e8d4b264775218ad418d174f14f3c5c660d7fe700e33eb68552dba8cab433c67a27e4952bdaad3d99c7dac2310281063760ab08a1ddfb29f1689a02'%7D,'Standard',false)&amp;input=YzE5MmE4ZTllMDFiOTVjNjljMTRhYWU4MDM2OGM2NjhlOTdlMWYyMzQ1NDViZWIwMmFiNzQyYzcyZDBhNjUwNDNjMWM4NTYyZDY1Y2Q3ZTQ2MmUzOTFhOGQ1MGJhMDRlMTRkM2FjNGFiZTlmMDlmYmE0ZTlmMDUwMzFiMzYwNTU1MDlkM2JjMmU1OWYxOGM3MDlmODdm">https://gchq.github.io/CyberChef/#recipe=From_Hex(‘Auto’)XOR({‘option’:’Hex’,’string’:’87fec98eda3bd692da6fc8da330af45e8d4b264775218ad418d174f14f3c5c660d7fe700e33eb68552dba8cab433c67a27e4952bdaad3d99c7dac2310281063760ab08a1ddfb29f1689a02’},’Standard’,false)&amp;input=YzE5MmE4ZTllMDFiOTVjNjljMTRhYWU4MDM2OGM2NjhlOTdlMWYyMzQ1NDViZWIwMmFiNzQyYzcyZDBhNjUwNDNjMWM4NTYyZDY1Y2Q3ZTQ2MmUzOTFhOGQ1MGJhMDRlMTRkM2FjNGFiZTlmMDlmYmE0ZTlmMDUwMzFiMzYwNTU1MDlkM2JjMmU1OWYxOGM3MDlmODdm</a></p>
 
 
 </article>
@@ -172,15 +169,15 @@
 
 <div class="post-pagination">
     
-    <a class="post-pagination-item left" href="/writeup/crypto-easy">
-        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">crypto-easy
+    <a class="post-pagination-item left" href="/writeup/dont-chat-rsa">
+        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">Don’t chat too much about RSA!
 </span>
     </a>
     
 
     
-    <a class="post-pagination-item right" href="/writeup/dont-chat-rsa">
-        <span class="post-pagination-title">Don’t chat too much about RSA!
+    <a class="post-pagination-item right" href="/writeup/shark-v2">
+        <span class="post-pagination-title">shark-v2
 </span> <i
             class="fas fa-chevron-right"></i>
     </a>

