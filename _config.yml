@@ -7,7 +7,7 @@ author:
   url: https://github.com/hofill/
 
 plugins:
-  - jekyll-archives
+  - jekyll-archives-hofill
 
 
 jekyll-archives:
