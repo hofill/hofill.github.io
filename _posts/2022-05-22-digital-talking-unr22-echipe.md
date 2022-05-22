@@ -3,7 +3,7 @@ layout: post
 author: hofill
 title: digital-talking
 slug: digital-talking
-ctf: UNR22 Individual
+ctf: UNR22 Echipe
 category: writeup
 writeup_categories: ["crypto", "misc"]
 tags: ["crypto", "digital", "7-segment-display", "misc"]
