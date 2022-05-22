@@ -16,10 +16,10 @@ $xl-screen: 80rem;
 
   --link-color: #{$oc-orange-9};
 
-  --heading-font: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  --heading-font: 'Cascadia Code', Monaco, sans-serif;
   --heading-color: #{$oc-black};
 
-  --code-font: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  --code-font: 'Cascadia Code',ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
   --code-bg: #{$oc-gray-2};
 
   --border-radius: .8em;
@@ -27,22 +27,20 @@ $xl-screen: 80rem;
 
   --sidebar-width: 16rem;
   --sidebar-color: #{$oc-gray-5};
-  --sidebar-bg: #{$oc-gray-8};
+  --sidebar-bg: #202020;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --body-color: #{$oc-gray-4};
-    --body-bg: #{$oc-gray-9};
+:root {
+  --body-color: #{$oc-gray-4};
+  --body-bg: #{#191919};
 
-    --link-color: #{$oc-blue-4};
+  --link-color: #{$oc-blue-4};
 
-    --heading-color: #{$oc-white};
+  --heading-color: #{$oc-white};
 
-    --code-bg: #{$oc-gray-7};
+  --code-bg: #{#292927};
 
-    --border-color: #{$oc-gray-7};
-  }
+  --border-color: #{$oc-gray-7};
 }
 
 @media (min-width: $md-screen) {

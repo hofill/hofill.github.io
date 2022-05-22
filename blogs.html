@@ -1,0 +1,25 @@
+---
+layout: default
+title: Blogs
+---
+
+<div class="posts">
+    <div class="blog">
+        <h1 class="category">Blogs:</h1>
+        {% for post in site.categories.blog limit:5 %}
+        <div class="post-entry">
+            <h2 class="post-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string
+                    }}
+                </time>
+            </h2>
+            <p class="post-excerpt">
+                {% if post.summary %}
+                <span style="color:#F2AF29"> >>> </span>{{ post.summary | strip_html }}
+                {% endif %}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</div>

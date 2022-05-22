@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  word-wrap: break-word;
 }
 
 html, body {
@@ -72,6 +73,7 @@ code, pre {
 code {
   padding: .1em .25em;
   background-color: var(--code-bg);
+  color: #D45F5A;
   border-radius: var(--border-radius);
 }
 
@@ -81,6 +83,7 @@ pre {
   margin: 1em 0;
 
   code {
+    color: inherit;
     padding: 0;
     background-color: inherit;
   }

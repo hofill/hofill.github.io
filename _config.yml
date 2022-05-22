@@ -1,0 +1,19 @@
+title: hofill > ./blog
+tagline: Crypto enthusiast.
+description: The place where <strike>magic</strike> hacking happens.
+
+author:
+  name: hofill
+  url: https://github.com/hofill/
+
+plugins:
+  - jekyll-archives
+
+
+jekyll-archives:
+  enabled: ['writeup_categories']
+  layout: category
+  permalinks:
+    writeup-category: '/writeups/:name/'
+
+permalink: /:categories/:title

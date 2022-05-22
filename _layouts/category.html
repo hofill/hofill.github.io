@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<h1 style="color: #EF596F">{{page.title}}</h1>
+{% assign posts = page.posts | sort 'date' | reverse %}
+{% for post in posts %}
+<div class="post-entry">
+    <h2 class="post-title">
+                <span class="helper">
+                    {% for category in post.writeup_categories %}<img class="category-image" alt="{{category}}"
+                                                                      src="/assets/img/categories/{{ category }}.svg">{% endfor %}
+                </span><a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string
+            }}
+        </time>
+        <span class="post-meta"> | </span><span class="post-meta">{{ post.ctf }}</span>
+    </h2>
+    <p class="post-excerpt">
+        {% if post.summary %}
+        <span style="color:#F2AF29; font-weight: bold"> >>> </span>{{ post.summary | strip_html }}
+        {% endif %}
+    </p>
+</div>
+{% endfor %}

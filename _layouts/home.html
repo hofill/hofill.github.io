@@ -5,40 +5,63 @@ layout: default
 {{ content }}
 
 <div class="posts">
-  {% assign posts = site.posts %}
-  {% if paginator %}
-    {% assign posts = paginator.posts %}
-  {% endif %}
-  {% for post in posts %}
-    <div class="post-entry">
-      <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string }}</time>
-      <h2 class="post-title">
-        <a href="{{ post.url | relative_url }}">
-          {{ post.title }}
-        </a>
-      </h2>
-      <p class="post-excerpt">
-        {% if post.description %}
-          {{ post.description | strip_html }}
-        {% else %}
-          {{ post.excerpt | strip_html }}
-        {% endif %}
-      </p>
+    <div class="blog">
+        <h2 class="category">Latest Blogs:</h2>
+        {% for post in site.categories.blog limit:5 %}
+        <div class="post-entry">
+            <h2 class="post-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string
+                    }}
+                </time>
+            </h2>
+            <p class="post-excerpt">
+                {% if post.summary %}
+                <span style="color:#F2AF29"> >>> </span>{{ post.summary | strip_html }}
+                {% endif %}
+            </p>
+        </div>
+        {% endfor %}
+        <a href="/blogs"><div class="cta">See All Blog Posts</div></a>
     </div>
-  {% endfor %}
+    <div class="writeups">
+        <h2 class="category">Latest Writeups:</h2>
+        {% for post in site.categories.writeup limit:5 %}
+        <div class="post-entry">
+            <h2 class="post-title">
+                <span class="helper">
+                    {% for category in post.writeup_categories %}<img class="category-image" alt="{{category}}"
+                         src="/assets/img/categories/{{ category }}.svg">{% endfor %}
+                </span><a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string
+                    }}
+                </time>
+                <span class="post-meta"> | </span><span class="post-meta">{{ post.ctf }}</span>
+            </h2>
+            <p class="post-excerpt">
+                {% if post.summary %}
+                <span style="color:#F2AF29; font-weight: bold"> >>> </span>{{ post.summary | strip_html }}
+                {% endif %}
+            </p>
+        </div>
+        {% endfor %}
+        <a href="/writeups"><div class="cta">See All Writeups</div></a>
+    </div>
 </div>
 
 {% if paginator %}
-  <div class="pagination">
+<div class="pagination">
     {% if paginator.previous_page %}
-      <a class="pagination-item left" href="{{ paginator.previous_page_path | relative_url }}"><i class="fas fa-chevron-left"></i></a>
+    <a class="pagination-item left" href="{{ paginator.previous_page_path | relative_url }}"><i
+            class="fas fa-chevron-left"></i></a>
     {% else %}
-      <span class="pagination-item left"><i class="fas fa-chevron-left"></i></span>
+    <span class="pagination-item left"><i class="fas fa-chevron-left"></i></span>
     {% endif %}
     {% if paginator.next_page %}
-      <a class="pagination-item right" href="{{ paginator.next_page_path | relative_url }}"><i class="fas fa-chevron-right"></i></a>
+    <a class="pagination-item right" href="{{ paginator.next_page_path | relative_url }}"><i
+            class="fas fa-chevron-right"></i></a>
     {% else %}
-      <span class="pagination-item right"><i class="fas fa-chevron-right"></i></span>
+    <span class="pagination-item right"><i class="fas fa-chevron-right"></i></span>
     {% endif %}
-  </div>
+</div>
 {% endif %}

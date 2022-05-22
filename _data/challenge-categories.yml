@@ -1,0 +1,12 @@
+- name: crypto
+  image: /assets/img/categories/crypto.svg
+- name: misc
+  image: /assets/img/categories/misc.svg
+- name: web
+  image: /assets/img/categories/web.svg
+- name: forensics
+  image: /assets/img/categories/forensics.svg
+- name: pwn
+  image: /assets/img/categories/pwn.svg
+- name: reverse
+  image: /assets/img/categories/reverse.svg
