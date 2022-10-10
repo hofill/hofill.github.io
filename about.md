@@ -9,7 +9,7 @@ I'm mostly passionate about cryptography and web, but I do like solving any type
 ### Achievements
 
 * 👑 1<sup>st</sup> place DCTF22 Quals - Teams
-* 8<sup>th</sup> place ECSC22 Austria - Teams
+* 8<sup>th</sup> place ECSC22 Austria - Team Romania
 * 👑 1<sup>st</sup> place ROCSC2022 Finals - Individual
 * 👑 1<sup>st</sup> place ROCSC2022 Quals - Individual
 * 👑 1<sup>st</sup> place UNR22 - Teams
