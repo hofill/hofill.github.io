@@ -2,16 +2,19 @@
 layout: page
 title: About Me
 ---
-I'm a CS student, currently trying to be the best at what I do.
-I'm mostly passionate about cryptography and web, but I do like solving any type of problem (unless it's 99% math)
+Security engineer. Mostly focused on web — finding things that shouldn't be there, breaking things that shouldn't break, and occasionally winning competitions doing it.
+Co-founder of [The Few Chosen CTF](https://ctftime.org/team/138060), Romania's largest hacking competition. Represented Team Romania at ECSC four times, captained in 2025.
 
 ### Achievements
 
-* 👑 1<sup>st</sup> place DCTF22 Quals - Teams
-* 8<sup>th</sup> place ECSC22 Austria - Team Romania
-* 👑 1<sup>st</sup> place ROCSC2022 Finals - Individual
-* 👑 1<sup>st</sup> place ROCSC2022 Quals - Individual
-* 👑 1<sup>st</sup> place UNR22 - Teams
-* 👑 1<sup>st</sup> place UNR22 - Individual
-* 2<sup>nd</sup> place UNR21 - Individual
-* 3<sup>rd</sup> place UNR21 - Teams
+* 👑 Captain of Team Romania - ECSC 2025, Poland
+* 2<sup>nd</sup> place (Bucharest Syndrome) - Sekai CTF 2025
+* 8<sup>th</sup> place (Stockholm Syndrome) - Google CTF (Finals)
+* 8<sup>th</sup> place (Team Romania) - ECSC22, ECSC23, ECSC24
+* 👑 1<sup>st</sup> place (Individual) - Romanian Cyber Security Challenge 2022
+* 2<sup>nd</sup> place (Individual) - Romanian Cyber Security Challenge 2024
+* 2<sup>nd</sup> place (Individual) - Romanian Cyber Security Challenge 2025
+* 👑 Best Team Romania - DCTF22, DCTF23, DCTF24 (Finals)
+* 3<sup>rd</sup> place (Teams) - HKCERT CTF 2024 Finals, Hong Kong
+* 2× Gold - Romanian Algorithm Olympiad (County Stage)
+* 👑 1<sup>st</sup> place (Individual) - KeruKento Kickboxing Competition
