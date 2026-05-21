@@ -2,66 +2,72 @@
 layout: default
 ---
 
-<article class="post">
-    {%- if page.image -%}
-    <img alt="" src="{{page.image}}" class="header-photo">
-    {%- endif -%}
-    <h1 class="post-title" style="color: #EF596F">{%- if page.writeup_categories -%}
-        <span class="helper">
-        {% for category in page.writeup_categories %}<img class="category-image" alt=""
-                                                          src="/assets/img/categories/{{ category }}.svg">{% endfor %}</span>{%-
-        endif -%}<span
-                class="title">{{ page.title }}</span></h1>
-    <div class="post-meta">
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-            {{ page.date | date_to_string }}
-        </time>
-        {%- if page.last_modified_at -%}
-        ~
-        {%- assign mdate = page.last_modified_at | date_to_xmlschema -%}
-        <time datetime="{{ mdate }}" itemprop="dateModified">
-            {{ mdate | date_to_string }}
-        </time>
-        {%- endif -%}
-        {%- if page.author -%}
-        •
-        {% for author in page.author %}
-        <span itemprop="author" itemscope itemtype="http://schema.org/Person">{{ author }}</span>
-        {%- if forloop.last == false %}, {% endif -%}
+<article>
+  <header class="mb-10 pb-8 border-b border-line">
+    <h1 class="font-mono text-xl font-medium text-rose leading-snug mb-5">
+      {% if page.writeup_categories %}
+      <span class="inline-flex items-center gap-1 align-middle mr-1" style="vertical-align:middle">
+        {% for category in page.writeup_categories %}
+        <img style="display:inline-block;width:1.1em;height:1.1em;border-radius:0;margin:0;padding:0;vertical-align:middle;object-fit:contain" alt="{{ category }}" src="/assets/img/categories/{{ category }}.svg">
         {% endfor %}
-        {%- endif -%}
-    </div>
-    <div class="post-writeup-tags">
-        {% for tag in page.tags %}
-        <div class="type">
-            {{tag}}
-        </div>
-        {% endfor %}
+      </span>
+      {% endif %}
+      {{ page.title }}
+    </h1>
+
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+      <time class="font-mono text-[11px] text-muted" datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date_to_string }}
+      </time>
+      {% if page.last_modified_at %}
+      <span class="font-mono text-[11px] text-muted">~ {{ page.last_modified_at | date_to_string }}</span>
+      {% endif %}
+      {% if page.author %}
+      <span class="font-mono text-[11px] text-muted">
+        {% for author in page.author %}{{ author }}{% unless forloop.last %}, {% endunless %}{% endfor %}
+      </span>
+      {% endif %}
+      {% if page.ctf %}
+      <span class="font-mono text-[11px] text-teal">{{ page.ctf }}</span>
+      {% endif %}
     </div>
 
+    {% if page.tags %}
+    <div class="flex flex-wrap gap-1.5">
+      {% for tag in page.tags %}
+      <span class="font-mono text-[10px] text-dim bg-surface border border-line px-2 py-0.5">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="prose-content">
     {{ content }}
-
+  </div>
 </article>
 
 {% if jekyll.environment == "production" and site.disqus and page.comments != false %}
 {% include disqus.html %}
 {% endif %}
 
-<div class="post-pagination">
-    {% if page.previous %}
-    <a class="post-pagination-item left" href="{{ page.previous.url | relative_url }}">
-        <i class="fas fa-chevron-left"></i> <span class="post-pagination-title">{{ page.previous.title | markdownify | strip_html }}</span>
-    </a>
-    {% else %}
-    <span class="post-pagination-item left"></span>
-    {% endif %}
+<div class="flex items-center justify-between mt-14 pt-8 border-t border-line">
+  {% if page.previous %}
+  <a href="{{ page.previous.url | relative_url }}"
+     class="font-mono text-[11px] text-muted hover:text-teal transition-colors flex items-center gap-2 max-w-[45%]">
+    <i class="fas fa-chevron-left text-[9px] shrink-0"></i>
+    <span class="truncate">{{ page.previous.title | markdownify | strip_html }}</span>
+  </a>
+  {% else %}
+  <span></span>
+  {% endif %}
 
-    {% if page.next %}
-    <a class="post-pagination-item right" href="{{ page.next.url | relative_url }}">
-        <span class="post-pagination-title">{{ page.next.title | markdownify | strip_html }}</span> <i
-            class="fas fa-chevron-right"></i>
-    </a>
-    {% else %}
-    <span class="post-pagination-item right"></span>
-    {% endif %}
+  {% if page.next %}
+  <a href="{{ page.next.url | relative_url }}"
+     class="font-mono text-[11px] text-muted hover:text-teal transition-colors flex items-center gap-2 text-right max-w-[45%]">
+    <span class="truncate">{{ page.next.title | markdownify | strip_html }}</span>
+    <i class="fas fa-chevron-right text-[9px] shrink-0"></i>
+  </a>
+  {% else %}
+  <span></span>
+  {% endif %}
 </div>

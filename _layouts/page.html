@@ -2,7 +2,11 @@
 layout: default
 ---
 
-<article class="page">
-  <h1 class="page-title" style="color: #EF596F">{{ page.title }}</h1>
-  {{ content }}
+<article>
+  <header class="mb-10 pb-8 border-b border-line">
+    <h1 class="font-mono text-xl font-medium text-rose leading-tight">{{ page.title }}</h1>
+  </header>
+  <div class="prose-content">
+    {{ content }}
+  </div>
 </article>

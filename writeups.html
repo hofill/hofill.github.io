@@ -1,15 +1,22 @@
 ---
-layout: page
+layout: default
 title: Writeups
 permalink: /writeups
 ---
-<div class="writeup-categories">
+
+<div>
+  <div class="flex items-center gap-3 mb-10">
+    <h1 class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.14em] shrink-0">Writeups</h1>
+    <div class="flex-1 border-t border-line"></div>
+  </div>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
     {% for category in site.data.challenge-categories %}
-    <a href="/writeups/{{category.name}}">
-    <div class="writeup-categories__category">
-        <img class="category-image" src="{{category.image}}">
-        <h2>{{category.name}}</h2>
-    </div>
+    <a href="/writeups/{{ category.name }}"
+       class="group flex flex-col items-center justify-center gap-3 p-6 border border-line bg-surface hover:border-teal hover:bg-surf2 transition-all duration-200 aspect-square">
+      <img style="width:2rem;height:2rem;object-fit:contain;border-radius:0;margin:0;border:0;opacity:0.65;transition:opacity 0.2s" class="group-hover:opacity-100" src="{{ category.image }}" alt="{{ category.name }}">
+      <span class="font-mono text-[11px] text-dim group-hover:text-body transition-colors text-center leading-tight">{{ category.name }}</span>
     </a>
     {% endfor %}
+  </div>
 </div>

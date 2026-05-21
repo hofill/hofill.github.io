@@ -2,66 +2,78 @@
 layout: default
 ---
 
-{{ content }}
-
-<div class="posts">
-    <div class="blog">
-        <h2 class="category">Latest Blogs:</h2>
-        {% for post in site.categories.blog limit:5 %}
-        <div class="post-entry">
-            <h2 class="post-title">
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string
-                    }}
-                </time>
-            </h2>
-            <p class="post-excerpt">
-                {% if post.summary %}
-                <span style="color:#F2AF29"> >>> </span>{{ post.summary | strip_html }}
-                {% endif %}
-            </p>
-        </div>
-        {% endfor %}
-        <a href="/blogs"><div class="cta">See All Blog Posts</div></a>
-    </div>
-    <div class="writeups">
-        <h2 class="category">Latest Writeups:</h2>
-        {% for post in site.categories.writeup limit:5 %}
-        <div class="post-entry">
-            <h2 class="post-title">
-                <span class="helper">
-                    {% for category in post.writeup_categories %}<img class="category-image" alt="{{category}}"
-                         src="/assets/img/categories/{{ category }}.svg">{% endfor %}
-                </span><a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                <time datetime="{{ post.date | date_to_xmlschema }}" class="post-meta">{{ post.date | date_to_string
-                    }}
-                </time>
-                <span class="post-meta"> | </span><span class="post-meta">{{ post.ctf }}</span>
-            </h2>
-            <p class="post-excerpt">
-                {% if post.summary %}
-                <span style="color:#F2AF29; font-weight: bold"> >>> </span>{{ post.summary | strip_html }}
-                {% endif %}
-            </p>
-        </div>
-        {% endfor %}
-        <a href="/writeups"><div class="cta">See All Writeups</div></a>
-    </div>
+<div class="mb-14 pb-14 border-b border-line">
+  <p class="font-mono text-[11px] text-muted mb-5 select-none">
+    <span class="text-teal">hofill</span><span class="text-line">@ctf</span>:<span class="text-rose">~</span><span class="text-muted">$ whoami</span>
+  </p>
+  <h1 class="font-mono text-[1.6rem] leading-tight font-medium text-body mb-3">
+    crypto enthusiast.<br>
+    <span class="text-teal">ctf player.</span>
+  </h1>
+  <p class="text-sm text-dim leading-relaxed mt-4">
+    The place where <s class="opacity-40">magic</s> hacking happens.<br>
+    Mostly breaking things cryptographically, occasionally winning things.
+  </p>
 </div>
 
-{% if paginator %}
-<div class="pagination">
-    {% if paginator.previous_page %}
-    <a class="pagination-item left" href="{{ paginator.previous_page_path | relative_url }}"><i
-            class="fas fa-chevron-left"></i></a>
-    {% else %}
-    <span class="pagination-item left"><i class="fas fa-chevron-left"></i></span>
-    {% endif %}
-    {% if paginator.next_page %}
-    <a class="pagination-item right" href="{{ paginator.next_page_path | relative_url }}"><i
-            class="fas fa-chevron-right"></i></a>
-    {% else %}
-    <span class="pagination-item right"><i class="fas fa-chevron-right"></i></span>
-    {% endif %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
+
+  <section>
+    <div class="flex items-center gap-3 mb-8">
+      <h2 class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.14em] shrink-0">Blogs</h2>
+      <div class="flex-1 border-t border-line"></div>
+    </div>
+    <div class="space-y-8">
+      {% for post in site.categories.blog limit:5 %}
+      <div>
+        <a href="{{ post.url | relative_url }}" class="group block">
+          <h3 class="font-mono text-[13px] text-body group-hover:text-teal transition-colors mb-1 leading-snug">{{ post.title }}</h3>
+          <time class="font-mono text-[10px] text-muted">{{ post.date | date_to_string }}</time>
+          {% if post.summary %}
+          <p class="text-[12.5px] text-dim mt-2 leading-relaxed">
+            <span class="text-amber font-mono">&gt;&gt;&gt;</span> {{ post.summary | strip_html }}
+          </p>
+          {% endif %}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="/blogs" class="inline-block mt-9 font-mono text-[11px] text-muted border border-line px-4 py-2 hover:border-teal hover:text-teal transition-all duration-200">
+      all posts →
+    </a>
+  </section>
+
+  <section>
+    <div class="flex items-center gap-3 mb-8">
+      <h2 class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.14em] shrink-0">Writeups</h2>
+      <div class="flex-1 border-t border-line"></div>
+    </div>
+    <div class="space-y-8">
+      {% for post in site.categories.writeup limit:5 %}
+      <div>
+        <a href="{{ post.url | relative_url }}" class="group block">
+          <div class="flex items-center gap-1.5 mb-1">
+            {% for category in post.writeup_categories %}
+            <img class="inline-block w-3.5 h-3.5 object-contain" style="border-radius:0;margin:0;padding:0;display:inline-block" alt="{{ category }}" src="/assets/img/categories/{{ category }}.svg">
+            {% endfor %}
+            <h3 class="font-mono text-[13px] text-body group-hover:text-teal transition-colors leading-snug">{{ post.title }}</h3>
+          </div>
+          <div class="flex items-center gap-2">
+            <time class="font-mono text-[10px] text-muted">{{ post.date | date_to_string }}</time>
+            {% if post.ctf %}<span class="font-mono text-[10px] text-muted">| {{ post.ctf }}</span>{% endif %}
+          </div>
+          {% if post.summary %}
+          <p class="text-[12.5px] text-dim mt-2 leading-relaxed">
+            <span class="text-amber font-mono font-semibold">&gt;&gt;&gt;</span> {{ post.summary | strip_html }}
+          </p>
+          {% endif %}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="/writeups" class="inline-block mt-9 font-mono text-[11px] text-muted border border-line px-4 py-2 hover:border-teal hover:text-teal transition-all duration-200">
+      all writeups →
+    </a>
+  </section>
+
 </div>
-{% endif %}

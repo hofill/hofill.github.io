@@ -1,11 +1,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/cryptoicontfc.svg">
+    <title>{% if page.title and page.title != "Home" %}{{ page.title }} — {% endif %}hofill</title>
 
-    <link rel="stylesheet" href="{{ 'assets/css/normalize.css' | relative_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              teal:    '#06BCC1',
+              amber:   '#F2AF29',
+              rose:    '#EF596F',
+              canvas:  '#0d0d0d',
+              surface: '#141414',
+              surf2:   '#1c1c1c',
+              line:    '#252525',
+              muted:   '#555555',
+              dim:     '#888888',
+              body:    '#cccccc',
+            },
+            fontFamily: {
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+              sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+
     <link rel="stylesheet" href="{{ 'assets/css/ockham.css' | relative_url }}">
-    <script async src="{{ 'assets/js/ockham.js' | relative_url }}"></script>
     <script async src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
 
-    {% include custom-head.html %}
+    {% if page.math %}{% include mathjax.html %}{% endif %}
+    {% if jekyll.environment == 'production' and site.google_analytics %}{% include google-analytics.html %}{% endif %}
 </head>
