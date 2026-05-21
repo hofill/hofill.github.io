@@ -1,6 +1,17 @@
 @import "external/open-color";
 @import "highlight-dark";
 
+// Cursor blink animation
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+  color: #06BCC1;
+  font-weight: 300;
+}
+
 // Rouge syntax highlight block
 .highlight {
   overflow-x: auto;
@@ -75,14 +86,24 @@
     color: #aaaaaa;
   }
 
-  s, del { opacity: 0.4; }
-
-  ul, ol {
-    padding-left: 1.5em;
-    margin: 0.75em 0;
+  s, del {
+    opacity: 0.55;
+    text-decoration-color: rgba(255,255,255,0.3);
   }
 
-  li { margin-bottom: 0.4em; }
+  ul, ol {
+    padding-left: 1.25em;
+    margin: 0.75em 0;
+    list-style-position: outside;
+  }
+
+  ul { list-style-type: disc; }
+  ol { list-style-type: decimal; }
+
+  li {
+    margin-bottom: 0.35em;
+    padding-left: 0.25em;
+  }
 
   sup {
     font-size: 0.7em;

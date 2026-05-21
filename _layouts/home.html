@@ -2,77 +2,79 @@
 layout: default
 ---
 
-<div class="mb-14 pb-14 border-b border-line">
-  <p class="font-mono text-[11px] text-muted mb-5 select-none">
-    <span class="text-teal">hofill</span><span class="text-line">@ctf</span>:<span class="text-rose">~</span><span class="text-muted">$ whoami</span>
+<div class="mb-12 pb-12 border-b border-[#2a2a2a]">
+  <p class="font-mono text-[11px] mb-6 select-none">
+    <span class="text-teal">hofill</span><span class="text-muted">@ctf</span><span class="text-dim">:</span><span class="text-rose">~</span><span class="text-dim">$</span> <span class="text-body opacity-80">whoami</span><span class="cursor-blink ml-0.5">_</span>
   </p>
-  <h1 class="font-mono text-[1.6rem] leading-tight font-medium text-body mb-3">
+  <h1 class="font-mono leading-[1.25] font-medium text-body mb-4" style="font-size:1.75rem">
     crypto enthusiast.<br>
     <span class="text-teal">ctf player.</span>
   </h1>
-  <p class="text-sm text-dim leading-relaxed mt-4">
-    The place where <s class="opacity-40">magic</s> hacking happens.<br>
-    Mostly breaking things cryptographically, occasionally winning things.
+  <p class="text-[13px] text-dim leading-relaxed">
+    The place where <s>magic</s> hacking happens.
+    Mostly breaking things cryptographically,<br>occasionally winning things.
   </p>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-12">
 
   <section>
     <div class="flex items-center gap-3 mb-8">
-      <h2 class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.14em] shrink-0">Blogs</h2>
-      <div class="flex-1 border-t border-line"></div>
+      <span class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.18em] shrink-0">Blogs</span>
+      <div class="flex-1 border-t border-[#333333]"></div>
     </div>
-    <div class="space-y-8">
+    <div class="space-y-6">
       {% for post in site.categories.blog limit:5 %}
-      <div>
-        <a href="{{ post.url | relative_url }}" class="group block">
-          <h3 class="font-mono text-[13px] text-body group-hover:text-teal transition-colors mb-1 leading-snug">{{ post.title }}</h3>
+      <div class="group relative pl-3 border-l border-[#2a2a2a] hover:border-teal transition-colors duration-200">
+        <a href="{{ post.url | relative_url }}" class="block">
+          <h3 class="font-mono text-[13px] font-medium text-body group-hover:text-teal transition-colors mb-1 leading-snug">{{ post.title }}</h3>
           <time class="font-mono text-[10px] text-muted">{{ post.date | date_to_string }}</time>
           {% if post.summary %}
-          <p class="text-[12.5px] text-dim mt-2 leading-relaxed">
-            <span class="text-amber font-mono">&gt;&gt;&gt;</span> {{ post.summary | strip_html }}
+          <p class="text-[12px] text-dim mt-1.5 leading-relaxed">
+            <span class="text-amber font-mono text-[11px]">&gt;&gt;&gt;</span> {{ post.summary | strip_html }}
           </p>
           {% endif %}
         </a>
       </div>
       {% endfor %}
     </div>
-    <a href="/blogs" class="inline-block mt-9 font-mono text-[11px] text-muted border border-line px-4 py-2 hover:border-teal hover:text-teal transition-all duration-200">
-      all posts →
+    <a href="/blogs" class="inline-flex items-center gap-2 mt-8 font-mono text-[11px] text-muted border border-[#2a2a2a] px-4 py-2 hover:border-teal hover:text-teal transition-all duration-200 group">
+      <span>all posts</span>
+      <span class="group-hover:translate-x-0.5 transition-transform duration-200">→</span>
     </a>
   </section>
 
   <section>
     <div class="flex items-center gap-3 mb-8">
-      <h2 class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.14em] shrink-0">Writeups</h2>
-      <div class="flex-1 border-t border-line"></div>
+      <span class="font-mono text-[10px] font-semibold text-rose uppercase tracking-[0.18em] shrink-0">Writeups</span>
+      <div class="flex-1 border-t border-[#333333]"></div>
     </div>
-    <div class="space-y-8">
+    <div class="space-y-6">
       {% for post in site.categories.writeup limit:5 %}
-      <div>
-        <a href="{{ post.url | relative_url }}" class="group block">
+      <div class="group relative pl-3 border-l border-[#2a2a2a] hover:border-teal transition-colors duration-200">
+        <a href="{{ post.url | relative_url }}" class="block">
           <div class="flex items-center gap-1.5 mb-1">
             {% for category in post.writeup_categories %}
-            <img class="inline-block w-3.5 h-3.5 object-contain" style="border-radius:0;margin:0;padding:0;display:inline-block" alt="{{ category }}" src="/assets/img/categories/{{ category }}.svg">
+            <img class="inline-block w-3.5 h-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity" style="border-radius:0;margin:0;padding:0;display:inline-block" alt="{{ category }}" src="/assets/img/categories/{{ category }}.svg">
             {% endfor %}
-            <h3 class="font-mono text-[13px] text-body group-hover:text-teal transition-colors leading-snug">{{ post.title }}</h3>
+            <h3 class="font-mono text-[13px] font-medium text-body group-hover:text-teal transition-colors leading-snug">{{ post.title }}</h3>
           </div>
           <div class="flex items-center gap-2">
             <time class="font-mono text-[10px] text-muted">{{ post.date | date_to_string }}</time>
             {% if post.ctf %}<span class="font-mono text-[10px] text-muted">| {{ post.ctf }}</span>{% endif %}
           </div>
           {% if post.summary %}
-          <p class="text-[12.5px] text-dim mt-2 leading-relaxed">
-            <span class="text-amber font-mono font-semibold">&gt;&gt;&gt;</span> {{ post.summary | strip_html }}
+          <p class="text-[12px] text-dim mt-1.5 leading-relaxed">
+            <span class="text-amber font-mono text-[11px] font-semibold">&gt;&gt;&gt;</span> {{ post.summary | strip_html }}
           </p>
           {% endif %}
         </a>
       </div>
       {% endfor %}
     </div>
-    <a href="/writeups" class="inline-block mt-9 font-mono text-[11px] text-muted border border-line px-4 py-2 hover:border-teal hover:text-teal transition-all duration-200">
-      all writeups →
+    <a href="/writeups" class="inline-flex items-center gap-2 mt-8 font-mono text-[11px] text-muted border border-[#2a2a2a] px-4 py-2 hover:border-teal hover:text-teal transition-all duration-200 group">
+      <span>all writeups</span>
+      <span class="group-hover:translate-x-0.5 transition-transform duration-200">→</span>
     </a>
   </section>
 

@@ -2,7 +2,6 @@
 layout: page
 title: About Me
 ---
----
 I'm a CS student, currently trying to be the best at what I do.
 I'm mostly passionate about cryptography and web, but I do like solving any type of problem (unless it's 99% math)
 

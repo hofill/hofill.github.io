@@ -3,19 +3,20 @@
 {% include head.html %}
 <body class="bg-canvas text-body font-sans antialiased min-h-screen flex flex-col">
 
-  <nav class="sticky top-0 z-50 bg-canvas border-b border-line">
-    <div class="max-w-4xl mx-auto px-5 flex items-center justify-between h-[52px]">
-      <a href="/" class="font-mono text-sm font-medium hover:opacity-75 transition-opacity shrink-0">
-        <span class="text-teal">hofill</span><span class="text-muted"> &gt; </span><span class="text-dim">./blog</span>
+  <nav class="sticky top-0 z-50 bg-canvas/[.97] border-b border-[#1e1e1e] backdrop-blur-sm">
+    <div class="max-w-3xl mx-auto px-6 flex items-center justify-between h-[50px]">
+      <a href="/" class="font-mono text-[13px] font-medium hover:opacity-70 transition-opacity shrink-0 tracking-tight">
+        <span class="text-teal">hofill</span><span class="text-[#3a3a3a] mx-[5px]">/</span><span class="text-dim">blog</span>
       </a>
-      <div class="flex items-center gap-0.5 ml-4">
+      <div class="flex items-center">
         {% for item in site.data.navigation %}
         <a href="{{ item.url | relative_url }}"
-           class="font-mono text-[11px] px-2.5 py-1.5 rounded-sm transition-colors {% if page.url == item.url %}text-teal{% else %}text-dim hover:text-body{% endif %}">
+           class="font-mono text-[11px] px-3 py-1 transition-colors relative {% if page.url == item.url %}text-body{% else %}text-muted hover:text-body{% endif %}">
           {{ item.title | downcase }}
+          {% if page.url == item.url %}<span class="absolute bottom-0 left-3 right-3 h-px bg-teal"></span>{% endif %}
         </a>
         {% endfor %}
-        <div class="w-px h-3.5 bg-line mx-1.5"></div>
+        <div class="w-px h-3 bg-[#2a2a2a] mx-2"></div>
         {% for social in site.data.social %}
         <a href="{{ social.url }}" target="_blank"
            class="w-7 h-7 flex items-center justify-center text-muted hover:text-teal transition-colors text-xs">
@@ -26,17 +27,17 @@
     </div>
   </nav>
 
-  <main class="flex-1 max-w-4xl mx-auto w-full px-5 py-10">
+  <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-12">
     {{ content }}
   </main>
 
-  <footer class="border-t border-line mt-auto">
-    <div class="max-w-4xl mx-auto px-5 py-5 flex items-center justify-between">
-      <span class="font-mono text-[11px] text-muted">
+  <footer class="border-t border-[#1e1e1e] mt-auto">
+    <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+      <span class="font-mono text-[10px] text-muted">
         &copy; {{ site.time | date: '%Y' }}
-        <a href="{{ site.author.url }}" target="_blank" class="text-teal hover:opacity-75 transition-opacity">{{ site.author.name }}</a>
+        <a href="{{ site.author.url }}" target="_blank" class="text-teal hover:opacity-75 transition-opacity ml-1">{{ site.author.name }}</a>
       </span>
-      <span class="font-mono text-[11px] text-muted">all rights reserved.</span>
+      <span class="font-mono text-[10px] text-muted opacity-50">all rights reserved.</span>
     </div>
   </footer>
 

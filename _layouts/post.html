@@ -3,39 +3,29 @@ layout: default
 ---
 
 <article>
-  <header class="mb-10 pb-8 border-b border-line">
-    <h1 class="font-mono text-xl font-medium text-rose leading-snug mb-5">
-      {% if page.writeup_categories %}
-      <span class="inline-flex items-center gap-1 align-middle mr-1" style="vertical-align:middle">
-        {% for category in page.writeup_categories %}
-        <img style="display:inline-block;width:1.1em;height:1.1em;border-radius:0;margin:0;padding:0;vertical-align:middle;object-fit:contain" alt="{{ category }}" src="/assets/img/categories/{{ category }}.svg">
-        {% endfor %}
-      </span>
-      {% endif %}
-      {{ page.title }}
-    </h1>
+  <header class="mb-10 pb-8 border-b border-[#222222]">
+    {% if page.writeup_categories %}
+    <div class="flex items-center gap-1 mb-3">
+      {% for category in page.writeup_categories %}
+      <img style="display:inline-block;width:1.1em;height:1.1em;border-radius:0;margin:0;padding:0;vertical-align:middle;object-fit:contain" alt="{{ category }}" src="/assets/img/categories/{{ category }}.svg">
+      {% endfor %}
+      <span class="font-mono text-[10px] text-muted ml-1">{{ page.writeup_categories | join: ', ' }}</span>
+    </div>
+    {% endif %}
 
-    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
-      <time class="font-mono text-[11px] text-muted" datetime="{{ page.date | date_to_xmlschema }}">
-        {{ page.date | date_to_string }}
-      </time>
-      {% if page.last_modified_at %}
-      <span class="font-mono text-[11px] text-muted">~ {{ page.last_modified_at | date_to_string }}</span>
-      {% endif %}
-      {% if page.author %}
-      <span class="font-mono text-[11px] text-muted">
-        {% for author in page.author %}{{ author }}{% unless forloop.last %}, {% endunless %}{% endfor %}
-      </span>
-      {% endif %}
-      {% if page.ctf %}
-      <span class="font-mono text-[11px] text-teal">{{ page.ctf }}</span>
-      {% endif %}
+    <h1 class="font-mono text-xl font-medium text-rose leading-snug mb-5">{{ page.title }}</h1>
+
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+      <time class="font-mono text-[11px] text-muted" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
+      {% if page.last_modified_at %}<span class="font-mono text-[11px] text-muted">~ {{ page.last_modified_at | date_to_string }}</span>{% endif %}
+      {% if page.author %}<span class="font-mono text-[11px] text-muted">{% for author in page.author %}{{ author }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>{% endif %}
+      {% if page.ctf %}<span class="font-mono text-[11px] text-teal">{{ page.ctf }}</span>{% endif %}
     </div>
 
     {% if page.tags %}
-    <div class="flex flex-wrap gap-1.5">
+    <div class="flex flex-wrap gap-1.5 mt-4">
       {% for tag in page.tags %}
-      <span class="font-mono text-[10px] text-dim bg-surface border border-line px-2 py-0.5">{{ tag }}</span>
+      <span class="font-mono text-[10px] text-muted bg-surface border border-[#2a2a2a] px-2 py-0.5">{{ tag }}</span>
       {% endfor %}
     </div>
     {% endif %}
@@ -50,24 +40,19 @@ layout: default
 {% include disqus.html %}
 {% endif %}
 
-<div class="flex items-center justify-between mt-14 pt-8 border-t border-line">
+<div class="flex items-center justify-between mt-14 pt-8 border-t border-[#222222]">
   {% if page.previous %}
   <a href="{{ page.previous.url | relative_url }}"
      class="font-mono text-[11px] text-muted hover:text-teal transition-colors flex items-center gap-2 max-w-[45%]">
     <i class="fas fa-chevron-left text-[9px] shrink-0"></i>
     <span class="truncate">{{ page.previous.title | markdownify | strip_html }}</span>
   </a>
-  {% else %}
-  <span></span>
-  {% endif %}
-
+  {% else %}<span></span>{% endif %}
   {% if page.next %}
   <a href="{{ page.next.url | relative_url }}"
      class="font-mono text-[11px] text-muted hover:text-teal transition-colors flex items-center gap-2 text-right max-w-[45%]">
     <span class="truncate">{{ page.next.title | markdownify | strip_html }}</span>
     <i class="fas fa-chevron-right text-[9px] shrink-0"></i>
   </a>
-  {% else %}
-  <span></span>
-  {% endif %}
+  {% else %}<span></span>{% endif %}
 </div>
