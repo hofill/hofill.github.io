@@ -3,14 +3,14 @@ layout: page
 title: About Me
 ---
 Security engineer. Mostly focused on web — finding things that shouldn't be there, breaking things that shouldn't break, and occasionally winning competitions doing it.
-Co-founder of [The Few Chosen CTF](https://ctftime.org/team/138060), Romania's largest hacking competition. Represented Team Romania at ECSC four times, captained in 2025.
+Founder of [The Few Chosen CTF](https://ctftime.org/team/138060), Romania's largest hacking competition. Represented Team Romania at ECSC five times, captained in 2025.
 
 ### Achievements
 
 * 👑 Captain of Team Romania - ECSC 2025, Poland
 * 2<sup>nd</sup> place (Bucharest Syndrome) - Sekai CTF 2025
 * 8<sup>th</sup> place (Stockholm Syndrome) - Google CTF (Finals)
-* 8<sup>th</sup> place (Team Romania) - ECSC22, ECSC23, ECSC24
+* 8<sup>th</sup> place (Team Romania) - ECSC21, ECSC22, ECSC23, ECSC24
 * 👑 1<sup>st</sup> place (Individual) - Romanian Cyber Security Challenge 2022
 * 2<sup>nd</sup> place (Individual) - Romanian Cyber Security Challenge 2024
 * 2<sup>nd</sup> place (Individual) - Romanian Cyber Security Challenge 2025
