@@ -10,7 +10,7 @@ Founder of [The Few Chosen CTF](https://ctftime.org/team/138060), Romania's larg
 * 👑 Captain of Team Romania - ECSC 2025, Poland
 * 2<sup>nd</sup> place (Bucharest Syndrome) - Sekai CTF 2025
 * 8<sup>th</sup> place (Stockholm Syndrome) - Google CTF (Finals)
-* 8<sup>th</sup> place (Team Romania) - ECSC21, ECSC22, ECSC23, ECSC24
+* 8<sup>th</sup> place (Team Romania) - ECSC22, ECSC23, ECSC24
 * 👑 1<sup>st</sup> place (Individual) - Romanian Cyber Security Challenge 2022
 * 2<sup>nd</sup> place (Individual) - Romanian Cyber Security Challenge 2024
 * 2<sup>nd</sup> place (Individual) - Romanian Cyber Security Challenge 2025
